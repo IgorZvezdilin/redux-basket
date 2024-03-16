@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect } from 'react';
 import { useActions, useAppSelector } from './store/store';
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import ProductList from './components/ProductList';
 import TotalSum from './components/totalSum';
 

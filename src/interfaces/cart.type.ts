@@ -19,9 +19,3 @@ export interface IProduct {
     thumbnail: string;
     count: number;
 }
-
-export interface IActionProduct {
-    id: number;
-    price: number;
-    quantity: number;
-}

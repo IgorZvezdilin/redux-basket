@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from 'axios';
-
+import type { AxiosInstance } from 'axios';
+import axios from 'axios';
 
 export default class HttpInstanceFactory {
     private static baseInstance: AxiosInstance | null = null;
@@ -13,9 +13,5 @@ export default class HttpInstanceFactory {
             },
         });
         return this.baseInstance;
-    }
-
-    public static cleatInstance() {
-        this.baseInstance = null;
     }
 }

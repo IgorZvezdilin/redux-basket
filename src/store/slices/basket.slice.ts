@@ -1,32 +1,22 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type { IActionProduct, IProduct } from '../../interfaces/cart.type';
-import { ActionStatuses } from '../../enum/status.enum';
+import type { IProduct } from '../../interfaces/cart.type';
 import { getAllGoods } from '../actions/basket.action';
 
 interface IInitialState {
     products: IProduct[] | [];
     total: number;
-    status: ActionStatuses;
 }
 
 const initialState: IInitialState = {
     products: [],
     total: 0,
-    status: ActionStatuses.PENDING,
 };
 
 const basketSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        resetState(state: IInitialState) {
-            state.products = [];
-            state.status = ActionStatuses.PENDING;
-        },
-        resetStatus(state: IInitialState) {
-            state.status = ActionStatuses.PENDING;
-        },
         changeTotal(state, action: PayloadAction<{ type: string; id: string }>) {
             const productIndex = state.products.findIndex(
                 (product) => product.id === Number(action.payload.id)
@@ -62,21 +52,18 @@ const basketSlice = createSlice({
             for (let products of action.payload) {
                 state.total += products.price;
             }
-            state.status = ActionStatuses.FULL_FIELD;
         });
         builder.addCase(getAllGoods.pending, (state) => {
             state.products = [];
             state.total = 0;
-            state.status = ActionStatuses.PENDING;
         });
-        builder.addCase(getAllGoods.rejected, (state, action: PayloadAction<any>) => {
+        builder.addCase(getAllGoods.rejected, (state) => {
             state.products = [];
             state.total = 0;
-            state.status = ActionStatuses.REJECTED;
         });
     },
 });
 
-export const { resetState, resetStatus, changeTotal, deleteProduct } = basketSlice.actions;
+export const { changeTotal, deleteProduct } = basketSlice.actions;
 
 export default basketSlice.reducer;
